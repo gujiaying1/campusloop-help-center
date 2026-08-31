@@ -41,6 +41,30 @@ function sp_support_search_shortcode() {
 }
 add_shortcode( 'support_search', 'sp_support_search_shortcode' );
 
+function sp_output_meta_description() {
+    if ( is_page( 'support' ) ) {
+        $description = 'Find help with CampusLoop listings, buying, reservations, messaging and account safety.';
+    } elseif ( is_singular( 'support_article' ) ) {
+        $post_id = get_queried_object_id();
+        $description = get_post_field( 'post_excerpt', $post_id );
+
+        if ( '' === trim( (string) $description ) ) {
+            $description = get_post_field( 'post_content', $post_id );
+        }
+
+        $description = wp_strip_all_tags( strip_shortcodes( $description ), true );
+        $description = preg_replace( '/\s+/', ' ', $description );
+        $description = wp_trim_words( trim( $description ), 30, '' );
+    } else {
+        return;
+    }
+
+    if ( '' !== $description ) {
+        printf( "\n<meta name=\"description\" content=\"%s\">\n", esc_attr( $description ) );
+    }
+}
+add_action( 'wp_head', 'sp_output_meta_description', 1 );
+
 function sp_help_center_template( $template ) {
     if ( is_page( 'support' ) || is_singular( 'support_article' ) ) return plugin_dir_path( __FILE__ ) . 'templates/help-center.php';
     return $template;
