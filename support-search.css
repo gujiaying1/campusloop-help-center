@@ -1,0 +1,90 @@
+/* CampusLoop Help Center: quiet, practical public-support layout. */
+body { background: #F6F4EF; }
+#sp-support-search {
+    box-sizing: border-box;
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 28px 72px;
+    color: #18212F;
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#sp-support-search *, #sp-support-search *::before, #sp-support-search *::after { box-sizing: border-box; }
+
+.sp-help-header {
+    padding: 19px 0;
+    border-bottom: 1px solid #E3E2DD;
+}
+
+.sp-help-header a { color: #6B7280; font-size: .95rem; text-decoration: none; }
+.sp-help-header strong { color: #18212F; font-weight: 650; }
+
+.sp-help-introduction { margin-top: 60px; max-width: 700px; }
+.sp-help-introduction h1 { margin: 0; color: #18212F; font-size: clamp(2.25rem, 4vw, 2.75rem); font-weight: 650; letter-spacing: -.035em; line-height: 1.1; }
+.sp-help-introduction p { margin: 13px 0 0; color: #6B7280; font-size: 1.07rem; line-height: 1.55; }
+
+#sp-search-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 190px auto;
+    gap: 10px;
+    align-items: end;
+    margin-top: 28px;
+}
+
+.sp-search-field { display: flex; flex-direction: column; gap: 7px; }
+#sp-support-search label { color: #18212F; font-size: .86rem; font-weight: 600; }
+
+#sp-support-search input, #sp-support-search select, #sp-search-button {
+    min-height: 56px;
+    border-radius: 9px;
+    font: inherit;
+}
+
+#sp-support-search input, #sp-support-search select {
+    width: 100%;
+    padding: 0 15px;
+    border: 1px solid #E3E2DD;
+    background: #FFFFFF;
+    color: #18212F;
+}
+
+#sp-support-search input::placeholder { color: #6B7280; opacity: 1; }
+#sp-search-button { padding: 0 22px; border: 1px solid #18212F; background: #18212F; color: #FFFFFF; font-weight: 600; cursor: pointer; }
+#sp-search-button:hover:not(:disabled) { background: #2A3545; }
+#sp-search-button:disabled { cursor: wait; opacity: .65; }
+
+#sp-support-search input:focus-visible, #sp-support-search select:focus-visible, #sp-support-search button:focus-visible, .sp-help-header a:focus-visible, .sp-results-list a:focus-visible, .sp-back-link:focus-visible, .sp-related a:focus-visible {
+    outline: 3px solid #6E8B7B;
+    outline-offset: 3px;
+}
+
+#sp-search-results { margin-top: 25px; }
+#sp-search-results:empty { display: none; }
+#sp-search-results h2 { margin: 0 0 13px; font-size: 1rem; font-weight: 650; }
+.sp-results-list { display: grid; gap: 0; margin: 0; padding: 0; border-top: 1px solid #E3E2DD; list-style: none; }
+.sp-results-list li { border-bottom: 1px solid #E3E2DD; }
+.sp-results-list a { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; color: #18212F; font-weight: 600; text-decoration: none; }
+.sp-results-list a::after { color: #6E8B7B; content: '→'; font-size: 1.2rem; }
+.sp-results-list a:hover { color: #6E8B7B; }
+
+.sp-support-shell { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+.sp-article { max-width: 780px; margin: 42px auto 72px; color: #18212F; font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.sp-back-link { display: inline-block; margin-bottom: 26px; color: #6B7280; text-decoration: none; }
+.sp-back-link:hover { color: #6E8B7B; }
+.sp-article-topic { margin: 0 0 11px; color: #6E8B7B; font-size: .88rem; font-weight: 600; }
+.sp-article h1 { margin: 0; font-size: clamp(2.15rem, 4vw, 3rem); font-weight: 650; letter-spacing: -.035em; line-height: 1.13; }
+.sp-article-content { margin-top: 28px; color: #18212F; font-size: 1.06rem; line-height: 1.72; }
+.sp-article-content > * { margin-top: 0; margin-bottom: 1.2em; }
+.sp-article-content h2, .sp-article-content h3 { margin-top: 1.9em; color: #18212F; line-height: 1.25; }
+.sp-article-content a, .sp-related a { color: #18212F; text-decoration-color: #6E8B7B; text-underline-offset: 3px; }
+.sp-related { margin-top: 46px; padding-top: 25px; border-top: 1px solid #E3E2DD; }
+.sp-related h2 { margin: 0 0 13px; font-size: 1.16rem; font-weight: 650; }
+.sp-related ul { display: grid; gap: 9px; margin: 0; padding-left: 18px; }
+
+@media (max-width: 760px) {
+    #sp-support-search { padding: 0 20px 52px; }
+    .sp-help-introduction { margin-top: 46px; }
+    #sp-search-form { grid-template-columns: 1fr; }
+    .sp-support-shell { padding: 0 20px; }
+    .sp-article { margin: 42px 20px 52px; }
+}
