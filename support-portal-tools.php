@@ -90,12 +90,12 @@ function sp_help_center_articles() { return array(
     ),
     'buying-reservations' => array(
         array( 'How reservations work', '<p>A reservation signals that a buyer and seller are arranging an exchange. Use messaging to confirm practical details and do not assume an item is yours until the reservation is clearly agreed in the app.</p>' ),
-        array( 'How to cancel a reservation', '<p>Open the reservation in CampusLoop and use the available cancellation option. Message the other person promptly so they are not left waiting.</p><p>If you cannot find the option or the situation is disputed, contact the appropriate administrator.</p>' ),
+        array( 'What to do if you need to cancel a reservation', '<p>If you can no longer continue with a reservation, contact the other person through CampusLoop messages as soon as possible.</p>' ),
         array( 'What to do if a buyer or seller stops replying', '<p>Send one clear follow-up with the key detail you need and give the other person reasonable time to respond.</p><p>If the exchange cannot proceed, do not share extra personal information or travel unnecessarily. Use reporting if the behavior is concerning.</p>' ),
     ),
     'account-safety' => array(
         array( 'How to report a listing or user', '<p>Use the reporting option on the relevant listing or user profile, and describe what happened accurately. Include useful context without sharing unrelated private information.</p>' ),
-        array( 'What happens after I submit a report?', '<p>Your report is reviewed by the appropriate CampusLoop administrator, who may check the listing, account and related messages before deciding what action is appropriate.</p><p>Do not assume a particular outcome or response time.</p>' ),
+        array( 'What happens after I submit a report?', '<p>Your report records the information you submitted so the issue can be reviewed by an administrator.</p><p>Do not assume a particular outcome or response time.</p>' ),
         array( 'Tips for arranging a safer in-person exchange', '<p>Choose a public, well-lit place and tell someone you trust where you are going. Keep communication in CampusLoop, confirm the item and price beforehand, and avoid sharing unnecessary personal details.</p><p>If something feels unsafe, leave and use the reporting process.</p>' ),
     ),
 ); }
