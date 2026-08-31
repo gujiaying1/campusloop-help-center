@@ -20,9 +20,15 @@ Activate the plugin, then open **Tools → Help Center Setup** and choose **Set 
 
 The search interface uses visible labels, keyboard submission, focus states, an `aria-live` result area and an `aria-busy` loading state. Search results use safe DOM text methods rather than injecting API text as HTML.
 
+## Testing and quality review
+
+Functional QA covered search, topic filtering and article navigation. Lighthouse 13.4.1 was run in Chrome's emulated Desktop mode on the local LocalWP development environment. The initial review identified text-contrast and meta-description issues, which were corrected with targeted changes.
+
+The final measured results were **100 Performance, 100 Accessibility, 78 Best Practices and 100 SEO** for both `/support/` and a representative `/help/<slug>/` article page. The Best Practices score is affected by the local HTTP environment and related deployment-level HTTPS/security-header checks, so it is not a production benchmark.
+
 ## Limitations and future work
 
-Content is English only. A future bilingual version could use separate crawlable URLs such as `/en/help/` and `/zh/help/`; multilingual routing is not implemented. Lighthouse results have not been measured in this environment.
+Content is English only. A future bilingual version could use separate crawlable URLs such as `/en/help/` and `/zh/help/`; multilingual routing is not implemented.
 
 Known debugging examples include a PHP file accidentally saved as RTF, a `/help/` permalink issue resolved by refreshing rewrite rules, browser caching during JavaScript changes, and a duplicated JavaScript block that caused a category-filtering syntax error.
 
