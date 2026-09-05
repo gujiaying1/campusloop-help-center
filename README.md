@@ -43,15 +43,19 @@ Custom Help Center / article template
 
 ## Screenshots
 
-Real screenshots are not included yet. The original LocalWP site folder is present, but its local web server was not running during this documentation update, so no screenshots were fabricated.
+The following are real screenshots from the local WordPress Help Center.
 
-Capture these desktop views after starting the existing **support-portal** site in LocalWP:
+### Help Center
 
-1. **Help Center:** `/support/`
-2. **Search & Topic Filtering:** `/support/` after searching for `reservation` or selecting **Buying & Reservations**
-3. **Help Article:** `/help/how-reservations-work/`
+![CampusLoop Help Center home](docs/screenshots/help-center-home.png)
 
-Save them as `docs/screenshots/help-center-home.png`, `docs/screenshots/help-center-search.png`, and `docs/screenshots/help-article.png`, then add them to this section.
+### Search & Topic Filtering
+
+![CampusLoop Help Center filtered by Buying & Reservations](docs/screenshots/help-center-search.png)
+
+### Help Article
+
+![CampusLoop Help Center article](docs/screenshots/help-article.png)
 
 ## Quality & Testing
 
