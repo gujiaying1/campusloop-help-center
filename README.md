@@ -1,37 +1,97 @@
 # CampusLoop Help Center
 
-CampusLoop Help Center is a small WordPress plugin for the public support content of the CampusLoop student marketplace. It covers listings, buying, reservations, messaging, reporting and safer exchanges without rebuilding the main application or adding AI/chat features.
+**WordPress Support Platform for the CampusLoop Marketplace**
 
-## What I built
+A custom WordPress plugin that provides a searchable public Help Center for the CampusLoop student marketplace. It is a support-content layer—not a replacement for the marketplace application—and implements custom content types, REST-powered search/filtering, templates, setup tooling, and accessibility-focused states.
 
-CampusLoop is the separate marketplace application where listings, messaging, reservations and reporting/admin workflows happen. This plugin is its public WordPress support-content layer: students can visit `/support/`, search by keyword and/or choose a topic, view matching results, and open an article at `/help/<slug>/`.
+**PHP · WordPress · REST API · JavaScript · CSS**
 
-## Architecture
+## What I Built
 
-The plugin registers the `support_article` Custom Post Type and the hierarchical `support_category` taxonomy. The current Help Center contains 12 CampusLoop articles across Getting Started, Selling & Listings, Buying & Reservations, and Account & Safety. Articles use the `/help/` rewrite base and are available through the WordPress REST API. The `/support/` page uses the `[support_search]` shortcode; its vanilla JavaScript searches the REST endpoint with keyword and taxonomy Term ID filters, loading, no-results, API-error and duplicate-submission states.
+- A `support_article` Custom Post Type for Help Center content.
+- A hierarchical `support_category` taxonomy for topic-based organisation.
+- A `/support/` Help Center page powered by the `[support_search]` shortcode.
+- Keyword search and topic filtering with the WordPress REST API.
+- Custom templates for the Help Center and individual `/help/<slug>/` articles.
+- An administrator-only setup screen that creates or updates four topics, twelve articles, and the Help Center page.
+- Loading, no-results, API-error, duplicate-submission, focus, and screen-reader status states.
 
-The plugin owns the Help Center page and single-article template. A `template_include` filter selects `templates/help-center.php` for `/support/` and all `support_article` posts. The reusable `the_content` filter adds the article topic, title, body, back link and related articles.
+## How It Works
 
-## Setup
+```text
+User
+  ↓
+/support/ Help Center
+  ↓
+JavaScript search and topic filter
+  ↓
+WordPress REST API: /wp/v2/support_article
+  ↓
+support_article + support_category
+  ↓
+Custom Help Center / article template
+```
 
-Activate the plugin, then open **Tools → Help Center Setup** and choose **Set up CampusLoop Help Center**. The setup action is administrator-only and nonce-protected. It matches seeded articles by title, so matching titles can be updated; renamed seeded articles need manual review before running setup again. Save **Settings → Permalinks** afterward to refresh rewrite rules.
+## Technical Highlights
 
-## Accessibility
+- **Structured WordPress content:** `register_post_type()` and `register_taxonomy()` expose support articles and categories to the REST API using `show_in_rest`.
+- **REST API search:** the browser sends keyword searches through the `search` parameter and selected category Term IDs through `support_category`; requests limit fields and results for the Help Center UI.
+- **Safe asynchronous UI:** JavaScript uses `fetch`, disables duplicate submissions while loading, and renders API-provided titles with `textContent` rather than HTML injection.
+- **Template control:** a `template_include` filter routes the Help Center page and all support articles through the plugin template. A `the_content` filter adds topic metadata, a back link, and related articles.
+- **Protected setup tooling:** the Tools → Help Center Setup action requires the `manage_options` capability and a WordPress nonce before seeding or updating content.
+- **Accessibility-focused interaction:** visible labels, keyboard form submission, focus-visible styles, an `aria-live` results region, and `aria-busy` while a request is in progress.
 
-The search interface uses visible labels, keyboard submission, focus states, an `aria-live` result area and an `aria-busy` loading state. Search results use safe DOM text methods rather than injecting API text as HTML.
+## Screenshots
 
-## Testing and quality review
+Real screenshots are not included yet. The original LocalWP site folder is present, but its local web server was not running during this documentation update, so no screenshots were fabricated.
 
-Functional QA covered search, topic filtering and article navigation. Lighthouse 13.4.1 was run in Chrome's emulated Desktop mode on the local LocalWP development environment. The initial review identified text-contrast and meta-description issues, which were corrected with targeted changes.
+Capture these desktop views after starting the existing **support-portal** site in LocalWP:
 
-The final measured results were **100 Performance, 100 Accessibility, 78 Best Practices and 100 SEO** for both `/support/` and a representative `/help/<slug>/` article page. The Best Practices score is affected by the local HTTP environment and related deployment-level HTTPS/security-header checks, so it is not a production benchmark.
+1. **Help Center:** `/support/`
+2. **Search & Topic Filtering:** `/support/` after searching for `reservation` or selecting **Buying & Reservations**
+3. **Help Article:** `/help/how-reservations-work/`
 
-## Limitations and future work
+Save them as `docs/screenshots/help-center-home.png`, `docs/screenshots/help-center-search.png`, and `docs/screenshots/help-article.png`, then add them to this section.
 
-Content is English only. A future bilingual version could use separate crawlable URLs such as `/en/help/` and `/zh/help/`; multilingual routing is not implemented.
+## Quality & Testing
 
-Known debugging examples include a PHP file accidentally saved as RTF, a `/help/` permalink issue resolved by refreshing rewrite rules, browser caching during JavaScript changes, and a duplicated JavaScript block that caused a category-filtering syntax error.
+Functional QA covered keyword search, topic filtering, and article navigation. The repository’s prior local test record reports Lighthouse 13.4.1 results in Chrome’s emulated Desktop mode for both `/support/` and a representative article:
 
-The **Tools → Help Center Setup** page initially did not appear because its registration was conditionally gated. It was corrected by registering the page with `admin_menu` and `add_management_page()`.
+| Measure | Result |
+| --- | ---: |
+| Performance | 100 |
+| Accessibility | 100 |
+| Best Practices | 78 |
+| SEO | 100 |
 
-The custom plugin source is version-controlled with Git and maintained in a GitHub repository.
+These were measured in the local LocalWP environment, not a production deployment. The Best Practices score was affected by local HTTP and deployment-level HTTPS/security-header checks.
+
+## Debugging / Engineering Lessons
+
+- A `/help/` routing issue was resolved by refreshing WordPress permalinks after registering the custom post type rewrite base.
+- A duplicated JavaScript block and extra closing brace caused a category-filtering syntax error; the fix reinforced the value of testing each filter path after edits.
+- The setup screen initially failed to appear because its registration was conditionally gated. Registering it through `admin_menu` with `add_management_page()` made the route reliable.
+
+## Running Locally
+
+1. Copy the plugin into `wp-content/plugins/` in a local WordPress installation.
+2. Activate **CampusLoop Help Center** in WordPress Admin → Plugins.
+3. Open **Tools → Help Center Setup** and select **Set up CampusLoop Help Center**.
+4. Save **Settings → Permalinks** to refresh the `/help/` rewrite rules.
+5. Open `/support/`.
+
+The setup action matches seed articles by title. Matching titles may be updated; renamed seed articles should be reviewed before setup is run again.
+
+## Limitations / Future Work
+
+- Support content is currently English only.
+- Multilingual, crawlable routes are not implemented.
+- Production hosting and deployment configuration are outside this repository.
+
+## Repository Contents
+
+- `support-portal-tools.php` — plugin registration, content setup, templates, asset loading, and metadata.
+- `support-search.js` — REST search/filter interaction.
+- `support-search.css` — Help Center and article presentation.
+- `templates/help-center.php` — shared front-end template.
+- `docs/INTERVIEW_NOTES.md` — implementation-based interview preparation notes.
